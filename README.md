@@ -1,6 +1,6 @@
 <img src="assets/img/banner.png" height="100px">
 
-# <a href>Linqu</a> - The best minifier
+# <a href="#">Linqu</a> - The best minifier
 
 ---
 
