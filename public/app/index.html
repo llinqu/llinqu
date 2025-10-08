@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Language - llinqu Minifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .text-gradient {
+            background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .language-card {
+            transition: all 0.3s ease;
+        }
+        .language-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-10 w-10">
+                    <span class="text-xl font-bold text-gray-900 dark:text-white">llinqu</span>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">Home</a>
+                    <a href="../#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">About</a>
+                    <a href="../#opensource" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">Open Source</a>
+                    <span class="bg-primary text-white px-4 py-2 rounded-lg font-medium">
+                        App
+                    </span>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-900 dark:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="../" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">Home</a>
+                    <a href="../#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">About</a>
+                    <a href="../#opensource" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-200">Open Source</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Choose Your <span class="text-gradient">Language</span>
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                    Select the programming language you want to minify. Our advanced algorithms support all major languages with lightning-fast processing.
+                </p>
+            </div>
+
+            <!-- Language Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+                <!-- JavaScript -->
+                <a href="javascript/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3h18v18H3V3zm16.525 13.707c-.131-.821-.666-1.511-2.252-2.155-.552-.259-1.165-.438-1.349-.854-.068-.248-.078-.382-.034-.529.114-.484.687-.629 1.137-.495.293.09.563.315.732.676.775-.507.775-.507 1.316-.844-.203-.314-.304-.451-.439-.586-.473-.528-1.103-.798-2.126-.77l-.528.067c-.507.124-.991.395-1.283.754-.855.968-.608 2.655.427 3.354 1.023.765 2.521.933 2.712 1.653.18.878-.652 1.159-1.475 1.058-.607-.136-.945-.439-1.316-1.002l-1.372.788c.157.359.337.517.607.832 1.305 1.316 4.568 1.249 5.153-.754.021-.067.18-.528.056-1.237l.034.049zm-6.737-5.434h-1.686c0 1.453-.007 2.898-.007 4.354 0 .924.047 1.772-.104 2.033-.247.528-.883.487-1.175.195-.297-.336-.304-.822-.304-1.336-.003-1.083 0-2.166 0-3.252s.007-2.118 0-3.179H7.791c0 1.359.003 2.718.017 4.076.012 1.298.203 2.526 1.047 3.316.888.827 2.214.945 3.522.715 1.203-.208 2.214-.808 2.714-1.939.325-.739.277-1.638.277-2.51-.002-1.28.002-2.563-.002-3.849-.002-.78-.002-1.563-.002-2.342h-.002z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">JavaScript</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.js files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Minify JavaScript code, remove comments, whitespace, and optimize variable names.
+                    </p>
+                </a>
+
+                <!-- CSS -->
+                <a href="css/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">CSS</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.css files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Compress CSS stylesheets, remove unused properties, and optimize selectors.
+                    </p>
+                </a>
+
+                <!-- HTML -->
+                <a href="html/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">HTML</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.html files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Optimize HTML markup, remove unnecessary whitespace and comments.
+                    </p>
+                </a>
+
+                <!-- JSON -->
+                <a href="json/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5.843 4.568L4.568 5.843 6.727 8l-2.159 2.157 1.275 1.275L8 9.274l2.157 2.158 1.275-1.275L9.274 8l2.158-2.157L10.157 4.57 8 6.726 5.843 4.568zm6.314 10.275l1.275 1.275L16 13.726l2.157 2.157 1.275-1.275L17.274 12l2.158-2.157-1.275-1.275L16 10.726l-2.157-2.158-1.275 1.275L14.726 12l-2.158 2.157L10.411 15.432z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">JSON</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.json files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Compress JSON data by removing whitespace while maintaining validity.
+                    </p>
+                </a>
+
+                <!-- XML -->
+                <a href="xml/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.5 2A1.5 1.5 0 007 3.5v1A1.5 1.5 0 008.5 6h1A1.5 1.5 0 0011 4.5v-1A1.5 1.5 0 009.5 2h-1zM13 6a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1h-1a1 1 0 01-1-1V6zm1.5 2A1.5 1.5 0 0013 9.5v1a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-1A1.5 1.5 0 0015.5 8h-1zM8 9a1 1 0 011-1h1a1 1 0 011 1v1a1 1 0 01-1 1H9a1 1 0 01-1-1V9zm1.5 3A1.5 1.5 0 008 13.5v1a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-1A1.5 1.5 0 0010.5 12h-1zm5 0A1.5 1.5 0 0013 13.5v1a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-1A1.5 1.5 0 0015.5 12h-1zm-5 4A1.5 1.5 0 008 17.5v1a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-1A1.5 1.5 0 0010.5 16h-1zm5 0A1.5 1.5 0 0013 17.5v1a1.5 1.5 0 001.5 1.5h1a1.5 1.5 0 001.5-1.5v-1A1.5 1.5 0 0015.5 16h-1z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">XML</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.xml files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Minimize XML documents while preserving structure and data integrity.
+                    </p>
+                </a>
+
+                <!-- SQL -->
+                <a href="sql/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0C5.373 0 0 2.686 0 6v12c0 3.314 5.373 6 12 6s12-2.686 12-6V6c0-3.314-5.373-6-12-6zm0 2c5.523 0 10 2.015 10 4s-4.477 4-10 4S2 8.015 2 6s4.477-4 10-4zM2 8.5C4.144 10.348 7.898 11 12 11s7.856-.652 10-2.5V12c0 1.985-4.477 4-10 4S2 13.985 2 12V8.5zm0 6C4.144 16.348 7.898 17 12 17s7.856-.652 10-2.5V18c0 1.985-4.477 4-10 4S2 19.985 2 18v-3.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">SQL</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.sql files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Optimize SQL queries by removing comments and unnecessary whitespace.
+                    </p>
+                </a>
+
+                <!-- PHP -->
+                <a href="php/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-violet-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .982-.122 1.292-.393.31-.27.465-.618.465-1.044 0-.297-.058-.517-.174-.66-.116-.142-.29-.213-.52-.213-.17 0-.338.024-.504.072v.59zm-.051-2.648c.274 0 .493.074.658.221.165.148.247.351.247.611 0 .34-.117.601-.35.784-.234.183-.549.274-.945.274h-.7l.09-.59zm8.562-.066c-.274 0-.493.074-.658.221-.165.148-.247.351-.247.611 0 .34.117.601.35.784.234.183.549.274.945.274h.7l-.09.59h-.838c-.556 0-.982.122-1.292.393-.31.27-.465.618-.465 1.044 0 .297.058.517.174.66.116.142.29.213.52.213.17 0 .338-.024.504-.072v-.59h.944l.515-2.648h-.838c-.556 0-.982.122-1.292.393-.31.27-.465.618-.465 1.044 0 .297.058.517.174.66.116.142.29.213.52.213.17 0 .338-.024.504-.072v-.59z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">PHP</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.php files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Minify PHP code by removing comments and optimizing whitespace.
+                    </p>
+                </a>
+
+                <!-- Python -->
+                <a href="python/" class="language-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-7 h-7 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.58-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.58.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Python</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">.py files</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">
+                        Optimize Python scripts by removing comments and unnecessary whitespace.
+                    </p>
+                </a>
+            </div>
+
+            <!-- Features Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-200 dark:border-gray-700">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                        Why Choose <span class="text-gradient">llinqu</span>?
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Experience the fastest and most reliable code minification available
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Lightning Fast</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Process files in nano-seconds with our optimized algorithms</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">100% Reliable</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Your code's functionality remains intact after minification</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Secure & Private</h3>
+                        <p class="text-gray-600 dark:text-gray-400">All processing happens locally, your code never leaves your browser</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 py-8 mt-16 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-6 w-6">
+                <span class="text-lg font-bold text-gray-900 dark:text-white">llinqu</span>
+            </div>
+            <p class="text-gray-500 dark:text-gray-400">
+                © 2025 llinqu. All rights reserved. | The best enterprise minifier
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
