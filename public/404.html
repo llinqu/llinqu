@@ -42,7 +42,7 @@
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
-                    <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-10 w-10">
+                    <img src="./assets/img/logo.png" alt="llinqu Logo" class="h-10 w-10">
                     <span class="text-xl font-bold text-gray-900 dark:text-white">llinqu</span>
                 </div>
                 
@@ -103,7 +103,7 @@
             
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <a href="../" class="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full font-semibold text-lg hover:bg-primary-dark hover:scale-105 transition-all duration-300 shadow-lg">
+                <a href="./" class="inline-flex items-center px-8 py-4 bg-primary text-white rounded-full font-semibold text-lg hover:bg-primary-dark hover:scale-105 transition-all duration-300 shadow-lg">
                     <svg class="mr-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -189,7 +189,7 @@
         document.querySelectorAll('a[href*="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
-                if (href.includes('#') && !href.startsWith('../#')) {
+                if (href.includes('#') && !href.startsWith('./#')) {
                     return; // Let default behavior handle external anchor links
                 }
             });
