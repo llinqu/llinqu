@@ -1,9 +1,9 @@
 <img src="public/assets/img/banner.png" height="100px">
 
-# <a href="#">llinqu</a> - The best minifier
+# <a href="#">Llinqu</a> - The best minifier
 
 ---
 
-_Linqu_ is a completly free enterprise level code minifier. Using ultra fast algorithms, Linqu gets minifying done in nano-seconds. With an extencive range of languages, Linqu is the best tool in your kit.
+_Llinqu_ is a completly free enterprise level code minifier. Using ultra fast algorithms, Llinqu gets minifying done in nano-seconds. With an extencive range of languages, Llinqu is the best tool in your kit.
 
 _Last updated: 11:47 08/10/2025_
