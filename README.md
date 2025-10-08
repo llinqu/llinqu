@@ -1,4 +1,4 @@
-<img src="assets/img/logo.png" style="width: 200px;">
+<img src="assets/img/banner.png">
 
 # <a href>Linqu</a> - The best minifier
 
