@@ -1,1 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minify Code - llinqu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .text-gradient {
+            background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .editor-container {
+            height: calc(100vh - 200px);
+            min-height: 500px;
+        }
+        .menu-backdrop {
+            backdrop-filter: blur(8px);
+        }
+        .menu-slide {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu-slide.open {
+            transform: translateX(0);
+        }
+        #loadingOverlay {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .dark #loadingOverlay {
+            background: rgba(17, 24, 39, 0.9);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-lg font-medium text-gray-700 dark:text-gray-300">Loading Editor...</p>
+        </div>
+    </div>
 
+    <!-- Menu Button -->
+    <button id="menuBtn" class="fixed top-6 left-6 z-40 w-12 h-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+        <i class="fas fa-bars text-gray-700 dark:text-gray-300 text-lg"></i>
+    </button>
+
+    <!-- Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 menu-backdrop hidden">
+        <!-- Menu Panel -->
+        <div id="menuPanel" class="menu-slide fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-800 shadow-2xl">
+            <div class="p-6">
+                <!-- Menu Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center space-x-3">
+                        <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-8 w-8">
+                        <span class="text-xl font-bold text-gray-900 dark:text-white">llinqu</span>
+                    </div>
+                    <button id="closeMenuBtn" class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-times text-gray-500 dark:text-gray-400"></i>
+                    </button>
+                </div>
+
+                <!-- Language Info -->
+                <div class="mb-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Current Language</h3>
+                    <div class="flex items-center space-x-3">
+                        <div id="languageIcon" class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <i id="languageIconElement" class="text-primary text-xl"></i>
+                        </div>
+                        <div>
+                            <p id="languageName" class="font-semibold text-gray-900 dark:text-white">JavaScript</p>
+                            <p id="languageExt" class="text-sm text-gray-500 dark:text-gray-400">.js files</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Items -->
+                <nav class="space-y-2">
+                    <a href="index.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 group">
+                        <i class="fas fa-home text-gray-500 dark:text-gray-400 group-hover:text-primary"></i>
+                        <span class="font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">Back to Languages</span>
+                    </a>
+                    <button id="reloadBtn" class="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 group">
+                        <i class="fas fa-redo text-gray-500 dark:text-gray-400 group-hover:text-primary"></i>
+                        <span class="font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">Reload Editor</span>
+                    </button>
+                </nav>
+
+                <!-- Stats -->
+                <div class="mt-8 p-4 bg-gradient-to-r from-primary to-purple-600 rounded-xl text-white">
+                    <h4 class="font-semibold mb-2">Compression Stats</h4>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p class="opacity-80">Original Size</p>
+                            <p id="originalSize" class="font-bold">0 bytes</p>
+                        </div>
+                        <div>
+                            <p class="opacity-80">Minified Size</p>
+                            <p id="minifiedSize" class="font-bold">0 bytes</p>
+                        </div>
+                        <div class="col-span-2">
+                            <p class="opacity-80">Compression Ratio</p>
+                            <p id="compressionRatio" class="font-bold text-lg">0%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex h-screen">
+        <!-- Left Editor - Input -->
+        <div class="flex-1 flex flex-col">
+            <div class="p-6 pb-3">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span id="titleLanguage">JavaScript</span> <span class="text-gradient">Minifier</span>
+                        </h1>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1">Paste your code below to minify it instantly</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="clearBtn" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <i class="fas fa-trash mr-2"></i>Clear
+                        </button>
+                        <button id="copyInputBtn" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <i class="fas fa-copy mr-2"></i>Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 px-6 pb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden editor-container">
+                    <div id="inputEditor" class="h-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="w-px bg-gray-200 dark:bg-gray-700 mx-4"></div>
+
+        <!-- Right Editor - Output -->
+        <div class="flex-1 flex flex-col">
+            <div class="p-6 pb-3">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            Minified <span class="text-gradient">Output</span>
+                        </h2>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1">Optimized and compressed code</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button id="downloadBtn" class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors duration-200">
+                            <i class="fas fa-download mr-2"></i>Download
+                        </button>
+                        <button id="copyOutputBtn" class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <i class="fas fa-copy mr-2"></i>Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 px-6 pb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden editor-container">
+                    <div id="outputEditor" class="h-full"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let inputEditor, outputEditor;
+        let currentLanguage = 'javascript';
+        let minifierFunction = null;
+        let debounceTimer = null;
+
+        // Language configuration
+        const languageConfig = {
+            javascript: {
+                name: 'JavaScript',
+                ext: '.js files',
+                icon: 'fab fa-js-square',
+                monaco: 'javascript',
+                fileName: 'script.js'
+            },
+            css: {
+                name: 'CSS',
+                ext: '.css files',
+                icon: 'fab fa-css3-alt',
+                monaco: 'css',
+                fileName: 'styles.css'
+            },
+            html: {
+                name: 'HTML',
+                ext: '.html files',
+                icon: 'fab fa-html5',
+                monaco: 'html',
+                fileName: 'index.html'
+            },
+            json: {
+                name: 'JSON',
+                ext: '.json files',
+                icon: 'fab fa-js-square',
+                monaco: 'json',
+                fileName: 'data.json'
+            },
+            xml: {
+                name: 'XML',
+                ext: '.xml files',
+                icon: 'fas fa-code',
+                monaco: 'xml',
+                fileName: 'data.xml'
+            },
+            sql: {
+                name: 'SQL',
+                ext: '.sql files',
+                icon: 'fas fa-database',
+                monaco: 'sql',
+                fileName: 'query.sql'
+            },
+            php: {
+                name: 'PHP',
+                ext: '.php files',
+                icon: 'fab fa-php',
+                monaco: 'php',
+                fileName: 'script.php'
+            },
+            python: {
+                name: 'Python',
+                ext: '.py files',
+                icon: 'fab fa-python',
+                monaco: 'python',
+                fileName: 'script.py'
+            }
+        };
+
+        // Get language from URL parameter
+        function getLanguageFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('l') || 'javascript';
+        }
+
+        // Update UI based on language
+        function updateLanguageUI() {
+            const config = languageConfig[currentLanguage];
+            if (!config) return;
+
+            document.getElementById('languageName').textContent = config.name;
+            document.getElementById('languageExt').textContent = config.ext;
+            document.getElementById('languageIconElement').className = config.icon + ' text-primary text-xl';
+            document.getElementById('titleLanguage').textContent = config.name;
+            document.title = `${config.name} Minifier - llinqu`;
+        }
+
+        // Load minifier script dynamically
+        function loadMinifierScript() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = `scripts/${currentLanguage}.js`;
+                script.onload = () => {
+                    // The minifier function should be available as window.minify
+                    if (typeof window.minify === 'function') {
+                        minifierFunction = window.minify;
+                        resolve();
+                    } else {
+                        reject(new Error('Minifier function not found'));
+                    }
+                };
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // Initialize Monaco Editor
+        function initializeEditors() {
+            require.config({ 
+                paths: { 
+                    'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' 
+                } 
+            });
+
+            require(['vs/editor/editor.main'], function () {
+                const config = languageConfig[currentLanguage];
+                const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                // Input Editor
+                inputEditor = monaco.editor.create(document.getElementById('inputEditor'), {
+                    value: '',
+                    language: config.monaco,
+                    theme: isDark ? 'vs-dark' : 'vs',
+                    fontSize: 14,
+                    minimap: { enabled: false },
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    wordWrap: 'on'
+                });
+
+                // Output Editor (Read-only)
+                outputEditor = monaco.editor.create(document.getElementById('outputEditor'), {
+                    value: '',
+                    language: config.monaco,
+                    theme: isDark ? 'vs-dark' : 'vs',
+                    fontSize: 14,
+                    minimap: { enabled: false },
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    readOnly: true,
+                    wordWrap: 'on'
+                });
+
+                // Auto-minify on input change
+                inputEditor.onDidChangeModelContent(() => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(minifyCode, 300);
+                });
+
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+            });
+        }
+
+        // Minify code function
+        function minifyCode() {
+            if (!minifierFunction) return;
+
+            const inputCode = inputEditor.getValue();
+            if (!inputCode.trim()) {
+                outputEditor.setValue('');
+                updateStats(0, 0);
+                return;
+            }
+
+            try {
+                const minifiedCode = minifierFunction(inputCode);
+                outputEditor.setValue(minifiedCode);
+                updateStats(inputCode.length, minifiedCode.length);
+            } catch (error) {
+                outputEditor.setValue(`// Error minifying code:\n// ${error.message}`);
+                updateStats(inputCode.length, 0);
+            }
+        }
+
+        // Update compression stats
+        function updateStats(originalSize, minifiedSize) {
+            const compression = originalSize > 0 ? ((originalSize - minifiedSize) / originalSize * 100).toFixed(1) : 0;
+            
+            document.getElementById('originalSize').textContent = formatBytes(originalSize);
+            document.getElementById('minifiedSize').textContent = formatBytes(minifiedSize);
+            document.getElementById('compressionRatio').textContent = compression + '%';
+        }
+
+        // Format bytes
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 bytes';
+            const k = 1024;
+            const sizes = ['bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show success feedback (you could add a toast notification here)
+                console.log('Copied to clipboard');
+            });
+        }
+
+        // Download file
+        function downloadFile() {
+            const config = languageConfig[currentLanguage];
+            const content = outputEditor.getValue();
+            if (!content) return;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `minified-${config.fileName}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Update editor themes if they exist
+            if (inputEditor && outputEditor) {
+                const theme = event.matches ? 'vs-dark' : 'vs';
+                monaco.editor.setTheme(theme);
+            }
+        });
+
+        // Menu functionality
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            document.getElementById('menuOverlay').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('menuPanel').classList.add('open');
+            }, 10);
+        });
+
+        document.getElementById('closeMenuBtn').addEventListener('click', closeMenu);
+        document.getElementById('menuOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('menuOverlay')) {
+                closeMenu();
+            }
+        });
+
+        function closeMenu() {
+            document.getElementById('menuPanel').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('menuOverlay').classList.add('hidden');
+            }, 300);
+        }
+
+        // Button functionality
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+            location.reload();
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            inputEditor.setValue('');
+        });
+
+        document.getElementById('copyInputBtn').addEventListener('click', () => {
+            copyToClipboard(inputEditor.getValue());
+        });
+
+        document.getElementById('copyOutputBtn').addEventListener('click', () => {
+            copyToClipboard(outputEditor.getValue());
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', downloadFile);
+
+        // Initialize app
+        async function initApp() {
+            currentLanguage = getLanguageFromURL();
+            updateLanguageUI();
+            
+            try {
+                await loadMinifierScript();
+                initializeEditors();
+            } catch (error) {
+                console.error('Failed to load minifier:', error);
+                document.getElementById('loadingOverlay').innerHTML = `
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                        </div>
+                        <p class="text-lg font-medium text-red-600 mb-2">Failed to load minifier</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">The ${languageConfig[currentLanguage].name} minifier could not be loaded.</p>
+                        <button onclick="location.href='index.html'" class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-200">
+                            Back to Languages
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Start the app
+        initApp();
+    </script>
+</body>
+</html>
