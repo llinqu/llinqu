@@ -28,8 +28,8 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .editor-container {
-            height: calc(100vh - 140px);
+        .main-content {
+            height: calc(100vh - 60px);
         }
         .menu-backdrop {
             backdrop-filter: blur(8px);
@@ -58,10 +58,25 @@
         </div>
     </div>
 
-    <!-- Menu Button -->
-    <button id="menuBtn" class="fixed top-6 left-6 z-40 w-12 h-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
-        <i class="fas fa-bars text-gray-700 dark:text-gray-300 text-lg"></i>
-    </button>
+    <!-- Top Menu Bar -->
+    <div class="h-15 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 py-3">
+        <div class="flex items-center space-x-4">
+            <button id="menuBtn" class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-8 w-8">
+                <span class="text-xl font-bold text-gray-900 dark:text-white">llinqu</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">|</span>
+                <span id="topLanguageName" class="text-sm font-medium text-gray-700 dark:text-gray-300">JavaScript Minifier</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="text-sm text-gray-500 dark:text-gray-400">
+                Compression: <span id="topCompressionRatio" class="font-medium text-green-600 dark:text-green-400">0%</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Menu Overlay -->
     <div id="menuOverlay" class="fixed inset-0 z-30 bg-black bg-opacity-50 menu-backdrop hidden">
@@ -128,7 +143,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex h-screen">
+    <div class="flex main-content">
         <!-- Left Editor - Input -->
         <div class="flex-1 flex flex-col">
             <!-- Header -->
@@ -264,6 +279,7 @@
             document.getElementById('languageExt').textContent = config.ext;
             document.getElementById('languageIconElement').className = config.icon + ' text-primary text-xl';
             document.getElementById('titleLanguage').textContent = config.name;
+            document.getElementById('topLanguageName').textContent = config.name + ' Minifier';
             document.title = `${config.name} Minifier - llinqu`;
         }
 
@@ -363,6 +379,7 @@
             document.getElementById('minifiedSize').textContent = formatBytes(minifiedSize);
             document.getElementById('compressionRatio').textContent = compression + '%';
             document.getElementById('compressionRatioMenu').textContent = compression + '%';
+            document.getElementById('topCompressionRatio').textContent = compression + '%';
         }
 
         // Format bytes
