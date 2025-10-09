@@ -1,6 +1,4 @@
-<img src="public/assets/img/banner.png" height="100px">
-
-# <a href="#">Llinqu</a> - The best minifier
+# <img width="200" height="100" alt="image" src="https://github.com/user-attachments/assets/cc1e5dcd-8123-40cc-b7b3-67324cf24f12" />  
 
 ---
 
