@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>llinqu Dashboard - Code Minifier</title>
+    <title>llinqu Dashboard - Choose Language</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -20,687 +21,534 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .text-gradient {
+            background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .dark .glass-effect {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .language-card {
+            transition: all 0.3s ease;
+            min-width: 160px;
         }
-        
-        .gradient-border {
-            background: linear-gradient(white, white) padding-box, 
-                        linear-gradient(135deg, #5D5CDE, #7C3AED) border-box;
-            border: 2px solid transparent;
+        .language-card:hover {
+            transform: translateY(-2px);
         }
-        
-        .dark .gradient-border {
-            background: linear-gradient(#1f2937, #1f2937) padding-box, 
-                        linear-gradient(135deg, #5D5CDE, #7C3AED) border-box;
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-
-        .code-input {
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
-    <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
+    <div class="flex h-screen">
+        <!-- Left Sidebar -->
+        <aside class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">L</span>
                     </div>
                     <span class="text-xl font-bold">llinqu</span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 hidden sm:block">Dashboard</span>
                 </div>
-                
-                <!-- User Actions -->
-                <div class="flex items-center space-x-4">
-                    <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                        </svg>
-                    </button>
-                    <button class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </button>
-                </div>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Code Minifier Dashboard</p>
             </div>
-        </div>
-    </header>
 
-    <!-- Main Dashboard -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Stats Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Files Processed</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-files">0</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Space Saved</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-saved">0 B</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Avg Reduction</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-reduction">0%</p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Last Session</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-last">Never</p>
-                    </div>
-                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Navigation Menu -->
+            <nav class="flex-1 p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="flex items-center px-4 py-3 text-primary bg-primary/10 rounded-lg font-medium">
+                            <i class="fas fa-code mr-3"></i>
+                            Languages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                            <i class="fas fa-history mr-3"></i>
+                            History
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                            <i class="fas fa-chart-bar mr-3"></i>
+                            Analytics
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                            <i class="fas fa-cog mr-3"></i>
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-        <!-- Quick Actions -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-bold mb-6">Quick Minify</h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                <button class="minify-btn bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all duration-200 group" data-type="javascript">
-                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M3 3h18v18H3V3zm16.525 13.707c-.131-.821-.666-1.511-2.252-2.155-.552-.259-1.165-.438-1.349-.854-.068-.248-.078-.382-.034-.529.113-.484.687-.629 1.137-.495.293.09.563.315.732.676.775-.507.775-.507 1.316-.844-.203-.314-.304-.451-.439-.586-.473-.528-1.103-.798-2.126-.77l-.528.067c-.507.124-.991.395-1.283.754-.855.968-.608 2.655.427 3.354 1.023.765 2.521.933 2.712 1.653.18.878-.652 1.159-1.475 1.058-.607-.136-.945-.439-1.316-.998l-1.372.788c.157.359.337.517.607.832 1.305 1.316 4.568 1.249 5.153-.754.021-.067.18-.528.056-1.237l.034.049zm-6.737-5.434h-1.686c0 1.453-.007 2.898-.007 4.354 0 .924.047 1.772-.104 2.033-.247.517-.886.451-1.175.359-.297-.146-.448-.349-.623-.641-.047-.078-.082-.146-.095-.146l-1.368.844c.229.473.563.879.994 1.137.641.383 1.502.507 2.404.305.588-.17 1.095-.519 1.358-1.059.384-.697.302-1.553.299-2.509.008-1.541 0-3.083 0-4.635l.003-.042z"/>
-                        </svg>
-                    </div>
-                    <p class="font-semibold text-gray-900 dark:text-white">JavaScript</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Minify JS files</p>
-                </button>
-
-                <button class="minify-btn bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all duration-200 group" data-type="css">
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
-                        </svg>
-                    </div>
-                    <p class="font-semibold text-gray-900 dark:text-white">CSS</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Minify stylesheets</p>
-                </button>
-
-                <button class="minify-btn bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all duration-200 group" data-type="html">
-                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
-                        </svg>
-                    </div>
-                    <p class="font-semibold text-gray-900 dark:text-white">HTML</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Compress markup</p>
-                </button>
-
-                <button class="minify-btn bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all duration-200 group" data-type="json">
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
-                    </div>
-                    <p class="font-semibold text-gray-900 dark:text-white">JSON</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Compress data</p>
-                </button>
-
-                <button class="minify-btn bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all duration-200 group" data-type="xml">
-                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                        </svg>
-                    </div>
-                    <p class="font-semibold text-gray-900 dark:text-white">XML</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Minify markup</p>
-                </button>
-            </div>
-        </div>
-
-        <!-- Main Workspace -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Input Panel -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="border-b border-gray-200 dark:border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg font-semibold">Input Code</h3>
-                        <div class="flex items-center space-x-2">
-                            <select id="language-select" class="text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                                <option value="javascript">JavaScript</option>
-                                <option value="css">CSS</option>
-                                <option value="html">HTML</option>
-                                <option value="json">JSON</option>
-                                <option value="xml">XML</option>
-                            </select>
-                            <button id="clear-input" class="text-sm text-gray-500 hover:text-red-500 transition-colors">Clear</button>
-                        </div>
+            <!-- Theme Toggle -->
+            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Theme</label>
+                    <div class="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+                        <button id="theme-light" class="flex-1 px-2 py-1 rounded-md text-xs font-medium transition-colors theme-btn" data-theme="light">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                        <button id="theme-dark" class="flex-1 px-2 py-1 rounded-md text-xs font-medium transition-colors theme-btn" data-theme="dark">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="theme-auto" class="flex-1 px-2 py-1 rounded-md text-xs font-medium transition-colors theme-btn" data-theme="auto">
+                            <i class="fas fa-desktop"></i>
+                        </button>
                     </div>
                 </div>
                 
-                <div class="p-4">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Upload File</label>
-                        <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-primary transition-colors">
-                            <input type="file" id="file-upload" class="hidden" accept=".js,.css,.html,.json,.xml,.txt">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                                <button class="text-primary hover:text-primary-dark">Click to upload</button> or drag and drop
-                            </p>
+                <a href="../" class="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-500 hover:text-primary border border-gray-300 dark:border-gray-600 rounded-lg transition-colors">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-hidden">
+            <!-- Top Header -->
+            <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold">
+                            Choose Your <span class="text-gradient">Language</span>
+                        </h1>
+                        <p class="text-gray-600 dark:text-gray-400 mt-1">
+                            Select a programming language to start minifying your code
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Total Languages</p>
+                        <p class="text-2xl font-bold text-primary" id="total-languages">10</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="p-6 h-full overflow-y-auto">
+                <!-- Languages Horizontal Scroll -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold flex items-center">
+                            <i class="fas fa-code mr-2 text-primary"></i>
+                            All Languages
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button id="scroll-left" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button id="scroll-right" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
                         </div>
                     </div>
                     
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Or paste your code</label>
-                        <textarea id="code-input" 
-                                  class="code-input w-full h-64 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-base resize-none" 
-                                  placeholder="Paste your code here..."></textarea>
-                    </div>
-                    
-                    <button id="minify-btn" class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span class="flex items-center justify-center">
-                            <svg id="minify-icon" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                            <span id="minify-text">Minify Code</span>
-                        </span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Output Panel -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="border-b border-gray-200 dark:border-gray-700 p-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg font-semibold">Minified Output</h3>
-                        <div class="flex items-center space-x-2">
-                            <span id="compression-ratio" class="text-sm text-green-600 dark:text-green-400 font-medium hidden"></span>
-                            <button id="copy-output" class="text-sm text-gray-500 hover:text-primary transition-colors disabled:opacity-50" disabled>Copy</button>
-                            <button id="download-output" class="text-sm text-gray-500 hover:text-primary transition-colors disabled:opacity-50" disabled>Download</button>
+                    <div id="languages-container" class="overflow-x-auto scrollbar-hide">
+                        <div class="flex space-x-4 pb-4" id="languages-scroll">
+                            <!-- Languages will be populated here -->
                         </div>
                     </div>
                 </div>
-                
-                <div class="p-4">
-                    <div class="mb-4" id="output-stats" style="display: none;">
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Original Size</p>
-                                <p class="text-lg font-semibold" id="original-size">0 bytes</p>
+
+                <!-- Recently Used -->
+                <div class="mb-8" id="recently-used-section" style="display: none;">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-clock mr-2 text-primary"></i>
+                        Recently Used
+                    </h2>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="recently-used-grid">
+                            <!-- Recently used languages will be populated here -->
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
+                            <button id="clear-recent" class="text-sm text-red-500 hover:text-red-600 transition-colors">
+                                <i class="fas fa-trash mr-1"></i>
+                                Clear Recent History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fas fa-bolt text-primary text-xl"></i>
                             </div>
-                            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Minified Size</p>
-                                <p class="text-lg font-semibold text-green-600 dark:text-green-400" id="minified-size">0 bytes</p>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Lightning Fast</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Process in nano-seconds</p>
                             </div>
                         </div>
                     </div>
                     
-                    <textarea id="code-output" 
-                              class="code-input w-full h-64 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-base resize-none" 
-                              placeholder="Minified code will appear here..." 
-                              readonly></textarea>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fas fa-check-circle text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white">100% Reliable</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Preserves functionality</p>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div id="processing" class="hidden text-center py-8">
-                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                        <p class="mt-2 text-gray-600 dark:text-gray-400">Processing...</p>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fas fa-lock text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-gray-900 dark:text-white">Secure & Private</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Local processing only</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Recent Files -->
-        <div class="mt-8">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold">Recent Files</h2>
-                <button class="text-sm text-primary hover:text-primary-dark">View All</button>
-            </div>
-            
-            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden" id="recent-files-container">
-                <div class="p-8 text-center text-gray-500 dark:text-gray-400" id="no-files-message">
-                    <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <p class="text-lg font-medium mb-2">No files processed yet</p>
-                    <p class="text-sm">Start minifying code to see your recent files here</p>
-                </div>
-                <div class="divide-y divide-gray-200 dark:divide-gray-700" id="recent-files-list" style="display: none;">
-                    <!-- Recent files will be populated here -->
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Data storage for session
-        let sessionData = {
-            processedFiles: [],
-            totalFiles: 0,
-            totalSpaceSaved: 0,
-            totalReductions: [],
-            lastProcessTime: null
+        // Language data with enhanced information
+        const languages = {
+            universal: { 
+                name: 'Universal', 
+                icon: 'fas fa-globe', 
+                color: 'gray', 
+                extension: '.*',
+                description: 'Basic minify for any file type'
+            },
+            javascript: { 
+                name: 'JavaScript', 
+                icon: 'fab fa-js-square', 
+                color: 'yellow', 
+                extension: '.js',
+                description: 'Optimize JS code and variables'
+            },
+            css: { 
+                name: 'CSS', 
+                icon: 'fab fa-css3-alt', 
+                color: 'blue', 
+                extension: '.css',
+                description: 'Compress stylesheets'
+            },
+            html: { 
+                name: 'HTML', 
+                icon: 'fab fa-html5', 
+                color: 'orange', 
+                extension: '.html',
+                description: 'Optimize markup structure'
+            },
+            json: { 
+                name: 'JSON', 
+                icon: 'fas fa-brackets-curly', 
+                color: 'green', 
+                extension: '.json',
+                description: 'Compress JSON data'
+            },
+            xml: { 
+                name: 'XML', 
+                icon: 'fas fa-code', 
+                color: 'purple', 
+                extension: '.xml',
+                description: 'Minimize XML documents'
+            },
+            sql: { 
+                name: 'SQL', 
+                icon: 'fas fa-database', 
+                color: 'indigo', 
+                extension: '.sql',
+                description: 'Optimize database queries'
+            },
+            php: { 
+                name: 'PHP', 
+                icon: 'fab fa-php', 
+                color: 'violet', 
+                extension: '.php',
+                description: 'Minify PHP server code'
+            },
+            python: { 
+                name: 'Python', 
+                icon: 'fab fa-python', 
+                color: 'yellow', 
+                extension: '.py',
+                description: 'Optimize Python scripts'
+            },
+            ruby: { 
+                name: 'Ruby', 
+                icon: 'fas fa-gem', 
+                color: 'red', 
+                extension: '.rb',
+                description: 'Minify Ruby applications'
+            }
         };
 
-        // Dark mode detection and toggle
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-        }
-        
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-            if (event.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
+        // Theme Management
+        class ThemeManager {
+            constructor() {
+                this.currentTheme = localStorage.getItem('llinqu-theme') || 'auto';
+                this.init();
             }
-        });
 
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-        });
+            init() {
+                this.updateTheme();
+                this.updateThemeButtons();
+                this.attachEventListeners();
+                
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    if (this.currentTheme === 'auto') {
+                        this.updateTheme();
+                    }
+                });
+            }
 
-        // Initialize dashboard
-        function updateDashboardStats() {
-            document.getElementById('stats-files').textContent = sessionData.totalFiles;
-            document.getElementById('stats-saved').textContent = formatBytes(sessionData.totalSpaceSaved);
-            
-            const avgReduction = sessionData.totalReductions.length > 0 
-                ? Math.round(sessionData.totalReductions.reduce((a, b) => a + b, 0) / sessionData.totalReductions.length)
-                : 0;
-            document.getElementById('stats-reduction').textContent = `${avgReduction}%`;
-            
-            document.getElementById('stats-last').textContent = sessionData.lastProcessTime 
-                ? formatTimeAgo(sessionData.lastProcessTime)
-                : 'Never';
+            setTheme(theme) {
+                this.currentTheme = theme;
+                localStorage.setItem('llinqu-theme', theme);
+                this.updateTheme();
+                this.updateThemeButtons();
+            }
+
+            updateTheme() {
+                const html = document.documentElement;
+                
+                if (this.currentTheme === 'dark') {
+                    html.classList.add('dark');
+                } else if (this.currentTheme === 'light') {
+                    html.classList.remove('dark');
+                } else {
+                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    if (prefersDark) {
+                        html.classList.add('dark');
+                    } else {
+                        html.classList.remove('dark');
+                    }
+                }
+            }
+
+            updateThemeButtons() {
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('text-gray-600', 'dark:text-gray-400');
+                });
+                
+                const activeBtn = document.querySelector(`[data-theme="${this.currentTheme}"]`);
+                if (activeBtn) {
+                    activeBtn.classList.remove('text-gray-600', 'dark:text-gray-400');
+                    activeBtn.classList.add('bg-primary', 'text-white');
+                }
+            }
+
+            attachEventListeners() {
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.setTheme(btn.dataset.theme);
+                    });
+                });
+            }
         }
 
-        function updateRecentFiles() {
-            const container = document.getElementById('recent-files-container');
-            const noFilesMessage = document.getElementById('no-files-message');
-            const filesList = document.getElementById('recent-files-list');
+        // Recently Used Manager
+        class RecentlyUsedManager {
+            constructor() {
+                this.maxItems = 5;
+                this.storageKey = 'llinqu-recent-languages';
+                this.recentLanguages = this.loadFromStorage();
+            }
 
-            if (sessionData.processedFiles.length === 0) {
-                noFilesMessage.style.display = 'block';
-                filesList.style.display = 'none';
-            } else {
-                noFilesMessage.style.display = 'none';
-                filesList.style.display = 'block';
+            loadFromStorage() {
+                try {
+                    const stored = localStorage.getItem(this.storageKey);
+                    return stored ? JSON.parse(stored) : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            saveToStorage() {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify(this.recentLanguages));
+                } catch (e) {
+                    console.warn('Failed to save recent languages to localStorage');
+                }
+            }
+
+            addLanguage(languageKey) {
+                const timestamp = Date.now();
                 
-                filesList.innerHTML = sessionData.processedFiles.slice(-10).reverse().map(file => `
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 ${getLanguageColor(file.language)} rounded-lg flex items-center justify-center">
-                                    <span class="text-xs font-semibold">${file.language.toUpperCase().substring(0, 3)}</span>
+                // Remove if already exists
+                this.recentLanguages = this.recentLanguages.filter(item => item.language !== languageKey);
+                
+                // Add to beginning with timestamp
+                this.recentLanguages.unshift({
+                    language: languageKey,
+                    timestamp: timestamp,
+                    count: (this.recentLanguages.find(item => item.language === languageKey)?.count || 0) + 1
+                });
+                
+                // Keep only max items
+                if (this.recentLanguages.length > this.maxItems) {
+                    this.recentLanguages = this.recentLanguages.slice(0, this.maxItems);
+                }
+                
+                this.saveToStorage();
+                this.updateRecentlyUsedDisplay();
+            }
+
+            clearRecent() {
+                this.recentLanguages = [];
+                this.saveToStorage();
+                this.updateRecentlyUsedDisplay();
+            }
+
+            formatTimeAgo(timestamp) {
+                const now = Date.now();
+                const diff = now - timestamp;
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+                
+                if (days > 0) return `${days}d ago`;
+                if (hours > 0) return `${hours}h ago`;
+                if (minutes > 0) return `${minutes}m ago`;
+                return 'Just now';
+            }
+
+            updateRecentlyUsedDisplay() {
+                const section = document.getElementById('recently-used-section');
+                const grid = document.getElementById('recently-used-grid');
+                
+                if (this.recentLanguages.length === 0) {
+                    section.style.display = 'none';
+                    return;
+                }
+                
+                section.style.display = 'block';
+                grid.innerHTML = this.recentLanguages.map(item => {
+                    const lang = languages[item.language];
+                    if (!lang) return '';
+                    
+                    return `
+                        <button class="language-card bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-md border border-gray-200 dark:border-gray-600 text-left transition-all" data-language="${item.language}">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-${lang.color}-100 dark:bg-${lang.color}-900/30 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="${lang.icon} text-${lang.color}-600 text-lg"></i>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">${file.name}</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Reduced by ${file.reduction}% • ${formatTimeAgo(file.timestamp)}</p>
+                                    <h3 class="font-semibold text-gray-900 dark:text-white text-sm">${lang.name}</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">${lang.extension}</p>
                                 </div>
                             </div>
-                            <button class="text-sm text-primary hover:text-primary-dark" onclick="downloadFile('${file.id}')">Download</button>
+                            <div class="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
+                                <span>Used ${item.count}x</span>
+                                <span>${this.formatTimeAgo(item.timestamp)}</span>
+                            </div>
+                        </button>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Languages Display Manager
+        class LanguagesManager {
+            constructor(recentManager) {
+                this.recentManager = recentManager;
+                this.init();
+            }
+
+            init() {
+                this.renderLanguages();
+                this.attachScrollHandlers();
+                this.attachLanguageClickHandlers();
+                
+                // Clear recent button
+                document.getElementById('clear-recent').addEventListener('click', () => {
+                    this.recentManager.clearRecent();
+                });
+            }
+
+            renderLanguages() {
+                const container = document.getElementById('languages-scroll');
+                
+                container.innerHTML = Object.entries(languages).map(([key, lang]) => `
+                    <button class="language-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-lg border border-gray-200 dark:border-gray-700 text-left" data-language="${key}">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-16 h-16 bg-${lang.color}-100 dark:bg-${lang.color}-900/30 rounded-lg flex items-center justify-center mb-4">
+                                <i class="${lang.icon} text-${lang.color}-600 text-2xl"></i>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-1">${lang.name}</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">${lang.extension}</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 text-center leading-tight">${lang.description}</p>
                         </div>
-                    </div>
+                    </button>
                 `).join('');
-            }
-        }
-
-        function getLanguageColor(language) {
-            const colors = {
-                javascript: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400',
-                css: 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400',
-                html: 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400',
-                json: 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400',
-                xml: 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400'
-            };
-            return colors[language] || 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400';
-        }
-
-        function formatTimeAgo(timestamp) {
-            const now = Date.now();
-            const diff = now - timestamp;
-            const minutes = Math.floor(diff / 60000);
-            const hours = Math.floor(diff / 3600000);
-            const days = Math.floor(diff / 86400000);
-            
-            if (days > 0) return `${days}d ago`;
-            if (hours > 0) return `${hours}h ago`;
-            if (minutes > 0) return `${minutes}m ago`;
-            return 'Just now';
-        }
-
-        function downloadFile(fileId) {
-            const file = sessionData.processedFiles.find(f => f.id === fileId);
-            if (file) {
-                const blob = new Blob([file.minifiedCode], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = file.name;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
-        }
-
-        // File upload handling
-        const fileUpload = document.getElementById('file-upload');
-        const codeInput = document.getElementById('code-input');
-        const languageSelect = document.getElementById('language-select');
-
-        fileUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    codeInput.value = e.target.result;
-                    // Auto-detect language from file extension
-                    const ext = file.name.split('.').pop().toLowerCase();
-                    const langMap = {
-                        'js': 'javascript',
-                        'css': 'css',
-                        'html': 'html',
-                        'htm': 'html',
-                        'json': 'json',
-                        'xml': 'xml'
-                    };
-                    if (langMap[ext]) {
-                        languageSelect.value = langMap[ext];
-                    }
-                };
-                reader.readAsText(file);
-            }
-        });
-
-        // Drag and drop
-        const dropZone = document.querySelector('.border-dashed');
-        
-        dropZone.addEventListener('click', () => fileUpload.click());
-        
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('border-primary', 'bg-primary/5');
-        });
-        
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-primary', 'bg-primary/5');
-        });
-        
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-primary', 'bg-primary/5');
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                fileUpload.files = files;
-                fileUpload.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        });
-
-        // Quick action buttons
-        document.querySelectorAll('.minify-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const type = e.currentTarget.dataset.type;
-                languageSelect.value = type;
-                codeInput.focus();
-            });
-        });
-
-        // Clear input
-        document.getElementById('clear-input').addEventListener('click', () => {
-            codeInput.value = '';
-            document.getElementById('code-output').value = '';
-            document.getElementById('output-stats').style.display = 'none';
-            document.getElementById('copy-output').disabled = true;
-            document.getElementById('download-output').disabled = true;
-            document.getElementById('compression-ratio').classList.add('hidden');
-        });
-
-        // Register minification handler
-        if (window.Poe) {
-            window.Poe.registerHandler('minify-handler', (result, context) => {
-                const msg = result.responses[0];
-                const codeOutput = document.getElementById('code-output');
-                const outputStats = document.getElementById('output-stats');
-                const minifyBtn = document.getElementById('minify-btn');
-                const minifyText = document.getElementById('minify-text');
-                const minifyIcon = document.getElementById('minify-icon');
                 
-                if (msg.status === "error") {
-                    codeOutput.value = "Error occurred during minification: " + (msg.statusText || "Unknown error");
-                    codeOutput.classList.add('text-red-500');
-                    
-                    // Reset button state
-                    minifyBtn.disabled = false;
-                    minifyText.textContent = 'Minify Code';
-                    minifyIcon.classList.remove('animate-spin');
-                } else if (msg.status === "incomplete") {
-                    // Show processing state
-                    codeOutput.value = msg.content || "Processing...";
-                } else if (msg.status === "complete") {
-                    let minified = msg.content.trim();
-                    
-                    // Extract minified code from response (remove any explanatory text)
-                    const codeBlocks = minified.match(/```[\s\S]*?```/g);
-                    if (codeBlocks && codeBlocks.length > 0) {
-                        // Get the last code block (should be the minified version)
-                        minified = codeBlocks[codeBlocks.length - 1]
-                            .replace(/```[\w]*\n?/, '')
-                            .replace(/```$/, '')
-                            .trim();
-                    }
-                    
-                    codeOutput.value = minified;
-                    codeOutput.classList.remove('text-red-500');
-                    
-                    // Calculate and display stats
-                    const originalCode = context.originalCode;
-                    const originalSize = new Blob([originalCode]).size;
-                    const minifiedSize = new Blob([minified]).size;
-                    const reduction = originalSize > 0 ? Math.round(((originalSize - minifiedSize) / originalSize) * 100) : 0;
-                    const spaceSaved = originalSize - minifiedSize;
-                    
-                    document.getElementById('original-size').textContent = formatBytes(originalSize);
-                    document.getElementById('minified-size').textContent = formatBytes(minifiedSize);
-                    document.getElementById('compression-ratio').textContent = `${reduction}% smaller`;
-                    document.getElementById('compression-ratio').classList.remove('hidden');
-                    
-                    outputStats.style.display = 'block';
-                    document.getElementById('copy-output').disabled = false;
-                    document.getElementById('download-output').disabled = false;
-                    
-                    // Update session data
-                    const fileId = Date.now().toString();
-                    const fileName = context.fileName || `minified.${getFileExtension(context.language)}`;
-                    
-                    sessionData.processedFiles.push({
-                        id: fileId,
-                        name: fileName,
-                        language: context.language,
-                        originalCode: originalCode,
-                        minifiedCode: minified,
-                        originalSize: originalSize,
-                        minifiedSize: minifiedSize,
-                        reduction: reduction,
-                        timestamp: Date.now()
-                    });
-                    
-                    sessionData.totalFiles++;
-                    sessionData.totalSpaceSaved += spaceSaved;
-                    sessionData.totalReductions.push(reduction);
-                    sessionData.lastProcessTime = Date.now();
-                    
-                    updateDashboardStats();
-                    updateRecentFiles();
-                    
-                    // Reset button state
-                    minifyBtn.disabled = false;
-                    minifyText.textContent = 'Minify Code';
-                    minifyIcon.classList.remove('animate-spin');
-                }
-            });
-        }
-
-        // Real minification using Poe API
-        document.getElementById('minify-btn').addEventListener('click', async () => {
-            const input = codeInput.value.trim();
-            if (!input) return;
-            
-            if (!window.Poe) {
-                showErrorMessage("Poe API not available. Please refresh the page and try again.");
-                return;
+                // Update total count
+                document.getElementById('total-languages').textContent = Object.keys(languages).length;
             }
 
-            const minifyBtn = document.getElementById('minify-btn');
-            const minifyText = document.getElementById('minify-text');
-            const minifyIcon = document.getElementById('minify-icon');
-            const codeOutput = document.getElementById('code-output');
-            
-            // Show loading state
-            minifyBtn.disabled = true;
-            minifyText.textContent = 'Processing...';
-            minifyIcon.classList.add('animate-spin');
-            codeOutput.value = 'Sending to AI minifier...';
-            codeOutput.classList.remove('text-red-500');
-            
-            const language = languageSelect.value;
-            const fileName = fileUpload.files[0]?.name || `code.${getFileExtension(language)}`;
-            
-            // Create minification prompt based on language
-            const prompts = {
-                javascript: `Minify this JavaScript code. Remove unnecessary whitespace, comments, and optimize the code while preserving functionality. Return ONLY the minified code without any explanations or formatting:\n\n${input}`,
-                css: `Minify this CSS code. Remove unnecessary whitespace, comments, and optimize selectors while preserving functionality. Return ONLY the minified CSS without any explanations or formatting:\n\n${input}`,
-                html: `Minify this HTML code. Remove unnecessary whitespace, comments, and optimize the structure while preserving functionality. Return ONLY the minified HTML without any explanations or formatting:\n\n${input}`,
-                json: `Minify this JSON data. Remove all unnecessary whitespace while preserving the valid JSON structure. Return ONLY the minified JSON without any explanations or formatting:\n\n${input}`,
-                xml: `Minify this XML code. Remove unnecessary whitespace and comments while preserving the valid XML structure. Return ONLY the minified XML without any explanations or formatting:\n\n${input}`
-            };
-            
-            try {
-                await window.Poe.sendUserMessage(
-                    `@Claude-Sonnet-4 ${prompts[language] || prompts.javascript}`,
-                    {
-                        handler: 'minify-handler',
-                        stream: true,
-                        openChat: false,
-                        handlerContext: {
-                            originalCode: input,
-                            language: language,
-                            fileName: fileName
-                        }
-                    }
-                );
-            } catch (error) {
-                codeOutput.value = `Error: ${error.message || 'Failed to process minification request'}`;
-                codeOutput.classList.add('text-red-500');
+            attachScrollHandlers() {
+                const container = document.getElementById('languages-container');
+                const scrollLeft = document.getElementById('scroll-left');
+                const scrollRight = document.getElementById('scroll-right');
                 
-                // Reset button state
-                minifyBtn.disabled = false;
-                minifyText.textContent = 'Minify Code';
-                minifyIcon.classList.remove('animate-spin');
+                scrollLeft.addEventListener('click', () => {
+                    container.scrollBy({ left: -200, behavior: 'smooth' });
+                });
+                
+                scrollRight.addEventListener('click', () => {
+                    container.scrollBy({ left: 200, behavior: 'smooth' });
+                });
             }
-        });
 
-        function getFileExtension(language) {
-            const extensions = {
-                javascript: 'js',
-                css: 'css',
-                html: 'html',
-                json: 'json',
-                xml: 'xml'
-            };
-            return extensions[language] || 'txt';
+            attachLanguageClickHandlers() {
+                document.addEventListener('click', (e) => {
+                    const languageBtn = e.target.closest('[data-language]');
+                    if (languageBtn) {
+                        const language = languageBtn.dataset.language;
+                        this.recentManager.addLanguage(language);
+                        this.navigateToMinifier(language);
+                    }
+                });
+            }
+
+            navigateToMinifier(language) {
+                // Add loading state
+                const clickedBtn = document.querySelector(`[data-language="${language}"]`);
+                const originalContent = clickedBtn.innerHTML;
+                
+                clickedBtn.innerHTML = `
+                    <div class="flex items-center justify-center p-4">
+                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                    </div>
+                `;
+                
+                // Simulate navigation delay
+                setTimeout(() => {
+                    window.location.href = `minify.html?l=${language}`;
+                }, 500);
+            }
         }
 
-        function showErrorMessage(message) {
-            const codeOutput = document.getElementById('code-output');
-            codeOutput.value = message;
-            codeOutput.classList.add('text-red-500');
-        }
-
-        // Copy output
-        document.getElementById('copy-output').addEventListener('click', async () => {
-            const output = document.getElementById('code-output').value;
-            try {
-                await navigator.clipboard.writeText(output);
-                const btn = document.getElementById('copy-output');
-                const originalText = btn.textContent;
-                btn.textContent = 'Copied!';
-                setTimeout(() => btn.textContent = originalText, 1000);
-            } catch (err) {
-                console.error('Failed to copy:', err);
-            }
-        });
-
-        // Download output
-        document.getElementById('download-output').addEventListener('click', () => {
-            const output = document.getElementById('code-output').value;
-            const language = languageSelect.value;
-            const fileName = fileUpload.files[0]?.name || `minified.${getFileExtension(language)}`;
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeManager = new ThemeManager();
+            const recentManager = new RecentlyUsedManager();
+            const languagesManager = new LanguagesManager(recentManager);
             
-            const blob = new Blob([output], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            // Initial display update
+            recentManager.updateRecentlyUsedDisplay();
         });
-
-        // Utility function to format bytes
-        function formatBytes(bytes, decimals = 2) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const dm = decimals < 0 ? 0 : decimals;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-        }
-
-        // Initialize dashboard on load
-        updateDashboardStats();
-        updateRecentFiles();
     </script>
 </body>
 </html>
