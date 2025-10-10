@@ -88,7 +88,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400">Files Processed</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white">127</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-files">0</p>
                     </div>
                     <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400">Space Saved</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white">2.4 MB</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-saved">0 B</p>
                     </div>
                     <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400">Avg Reduction</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white">68%</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-reduction">0%</p>
                     </div>
                     <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,7 +130,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-gray-600 dark:text-gray-400">Last Session</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white">2h ago</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white" id="stats-last">Never</p>
                     </div>
                     <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -296,58 +296,31 @@
                 <button class="text-sm text-primary hover:text-primary-dark">View All</button>
             </div>
             
-            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
-                                    <span class="text-xs font-semibold text-yellow-600 dark:text-yellow-400">JS</span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">app.js</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Reduced by 72% • 2 hours ago</p>
-                                </div>
-                            </div>
-                            <button class="text-sm text-primary hover:text-primary-dark">Download</button>
-                        </div>
-                    </div>
-                    
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                    <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">CSS</span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">styles.css</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Reduced by 68% • 1 day ago</p>
-                                </div>
-                            </div>
-                            <button class="text-sm text-primary hover:text-primary-dark">Download</button>
-                        </div>
-                    </div>
-                    
-                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                                    <span class="text-xs font-semibold text-green-600 dark:text-green-400">JSON</span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-white">config.json</p>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Reduced by 45% • 2 days ago</p>
-                                </div>
-                            </div>
-                            <button class="text-sm text-primary hover:text-primary-dark">Download</button>
-                        </div>
-                    </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden" id="recent-files-container">
+                <div class="p-8 text-center text-gray-500 dark:text-gray-400" id="no-files-message">
+                    <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p class="text-lg font-medium mb-2">No files processed yet</p>
+                    <p class="text-sm">Start minifying code to see your recent files here</p>
+                </div>
+                <div class="divide-y divide-gray-200 dark:divide-gray-700" id="recent-files-list" style="display: none;">
+                    <!-- Recent files will be populated here -->
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Data storage for session
+        let sessionData = {
+            processedFiles: [],
+            totalFiles: 0,
+            totalSpaceSaved: 0,
+            totalReductions: [],
+            lastProcessTime: null
+        };
+
         // Dark mode detection and toggle
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
@@ -364,6 +337,91 @@
         document.getElementById('theme-toggle').addEventListener('click', () => {
             document.documentElement.classList.toggle('dark');
         });
+
+        // Initialize dashboard
+        function updateDashboardStats() {
+            document.getElementById('stats-files').textContent = sessionData.totalFiles;
+            document.getElementById('stats-saved').textContent = formatBytes(sessionData.totalSpaceSaved);
+            
+            const avgReduction = sessionData.totalReductions.length > 0 
+                ? Math.round(sessionData.totalReductions.reduce((a, b) => a + b, 0) / sessionData.totalReductions.length)
+                : 0;
+            document.getElementById('stats-reduction').textContent = `${avgReduction}%`;
+            
+            document.getElementById('stats-last').textContent = sessionData.lastProcessTime 
+                ? formatTimeAgo(sessionData.lastProcessTime)
+                : 'Never';
+        }
+
+        function updateRecentFiles() {
+            const container = document.getElementById('recent-files-container');
+            const noFilesMessage = document.getElementById('no-files-message');
+            const filesList = document.getElementById('recent-files-list');
+
+            if (sessionData.processedFiles.length === 0) {
+                noFilesMessage.style.display = 'block';
+                filesList.style.display = 'none';
+            } else {
+                noFilesMessage.style.display = 'none';
+                filesList.style.display = 'block';
+                
+                filesList.innerHTML = sessionData.processedFiles.slice(-10).reverse().map(file => `
+                    <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 ${getLanguageColor(file.language)} rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-semibold">${file.language.toUpperCase().substring(0, 3)}</span>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-white">${file.name}</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Reduced by ${file.reduction}% • ${formatTimeAgo(file.timestamp)}</p>
+                                </div>
+                            </div>
+                            <button class="text-sm text-primary hover:text-primary-dark" onclick="downloadFile('${file.id}')">Download</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function getLanguageColor(language) {
+            const colors = {
+                javascript: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400',
+                css: 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400',
+                html: 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400',
+                json: 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400',
+                xml: 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400'
+            };
+            return colors[language] || 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400';
+        }
+
+        function formatTimeAgo(timestamp) {
+            const now = Date.now();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (days > 0) return `${days}d ago`;
+            if (hours > 0) return `${hours}h ago`;
+            if (minutes > 0) return `${minutes}m ago`;
+            return 'Just now';
+        }
+
+        function downloadFile(fileId) {
+            const file = sessionData.processedFiles.find(f => f.id === fileId);
+            if (file) {
+                const blob = new Blob([file.minifiedCode], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        }
 
         // File upload handling
         const fileUpload = document.getElementById('file-upload');
@@ -438,78 +496,172 @@
             document.getElementById('compression-ratio').classList.add('hidden');
         });
 
-        // Basic minification (mock implementation)
-        document.getElementById('minify-btn').addEventListener('click', () => {
+        // Register minification handler
+        if (window.Poe) {
+            window.Poe.registerHandler('minify-handler', (result, context) => {
+                const msg = result.responses[0];
+                const codeOutput = document.getElementById('code-output');
+                const outputStats = document.getElementById('output-stats');
+                const minifyBtn = document.getElementById('minify-btn');
+                const minifyText = document.getElementById('minify-text');
+                const minifyIcon = document.getElementById('minify-icon');
+                
+                if (msg.status === "error") {
+                    codeOutput.value = "Error occurred during minification: " + (msg.statusText || "Unknown error");
+                    codeOutput.classList.add('text-red-500');
+                    
+                    // Reset button state
+                    minifyBtn.disabled = false;
+                    minifyText.textContent = 'Minify Code';
+                    minifyIcon.classList.remove('animate-spin');
+                } else if (msg.status === "incomplete") {
+                    // Show processing state
+                    codeOutput.value = msg.content || "Processing...";
+                } else if (msg.status === "complete") {
+                    let minified = msg.content.trim();
+                    
+                    // Extract minified code from response (remove any explanatory text)
+                    const codeBlocks = minified.match(/```[\s\S]*?```/g);
+                    if (codeBlocks && codeBlocks.length > 0) {
+                        // Get the last code block (should be the minified version)
+                        minified = codeBlocks[codeBlocks.length - 1]
+                            .replace(/```[\w]*\n?/, '')
+                            .replace(/```$/, '')
+                            .trim();
+                    }
+                    
+                    codeOutput.value = minified;
+                    codeOutput.classList.remove('text-red-500');
+                    
+                    // Calculate and display stats
+                    const originalCode = context.originalCode;
+                    const originalSize = new Blob([originalCode]).size;
+                    const minifiedSize = new Blob([minified]).size;
+                    const reduction = originalSize > 0 ? Math.round(((originalSize - minifiedSize) / originalSize) * 100) : 0;
+                    const spaceSaved = originalSize - minifiedSize;
+                    
+                    document.getElementById('original-size').textContent = formatBytes(originalSize);
+                    document.getElementById('minified-size').textContent = formatBytes(minifiedSize);
+                    document.getElementById('compression-ratio').textContent = `${reduction}% smaller`;
+                    document.getElementById('compression-ratio').classList.remove('hidden');
+                    
+                    outputStats.style.display = 'block';
+                    document.getElementById('copy-output').disabled = false;
+                    document.getElementById('download-output').disabled = false;
+                    
+                    // Update session data
+                    const fileId = Date.now().toString();
+                    const fileName = context.fileName || `minified.${getFileExtension(context.language)}`;
+                    
+                    sessionData.processedFiles.push({
+                        id: fileId,
+                        name: fileName,
+                        language: context.language,
+                        originalCode: originalCode,
+                        minifiedCode: minified,
+                        originalSize: originalSize,
+                        minifiedSize: minifiedSize,
+                        reduction: reduction,
+                        timestamp: Date.now()
+                    });
+                    
+                    sessionData.totalFiles++;
+                    sessionData.totalSpaceSaved += spaceSaved;
+                    sessionData.totalReductions.push(reduction);
+                    sessionData.lastProcessTime = Date.now();
+                    
+                    updateDashboardStats();
+                    updateRecentFiles();
+                    
+                    // Reset button state
+                    minifyBtn.disabled = false;
+                    minifyText.textContent = 'Minify Code';
+                    minifyIcon.classList.remove('animate-spin');
+                }
+            });
+        }
+
+        // Real minification using Poe API
+        document.getElementById('minify-btn').addEventListener('click', async () => {
             const input = codeInput.value.trim();
             if (!input) return;
+            
+            if (!window.Poe) {
+                showErrorMessage("Poe API not available. Please refresh the page and try again.");
+                return;
+            }
 
             const minifyBtn = document.getElementById('minify-btn');
             const minifyText = document.getElementById('minify-text');
             const minifyIcon = document.getElementById('minify-icon');
             const codeOutput = document.getElementById('code-output');
-            const outputStats = document.getElementById('output-stats');
             
             // Show loading state
             minifyBtn.disabled = true;
             minifyText.textContent = 'Processing...';
             minifyIcon.classList.add('animate-spin');
+            codeOutput.value = 'Sending to AI minifier...';
+            codeOutput.classList.remove('text-red-500');
             
-            // Simulate processing delay
-            setTimeout(() => {
-                const language = languageSelect.value;
-                let minified = input;
-                
-                // Basic minification logic (you'd replace this with actual minification)
-                switch(language) {
-                    case 'javascript':
-                        minified = input.replace(/\s+/g, ' ').replace(/;\s*}/g, '}').trim();
-                        break;
-                    case 'css':
-                        minified = input.replace(/\s+/g, ' ').replace(/;\s*}/g, '}').replace(/{\s+/g, '{').trim();
-                        break;
-                    case 'html':
-                        minified = input.replace(/>\s+</g, '><').replace(/\s+/g, ' ').trim();
-                        break;
-                    case 'json':
-                        try {
-                            minified = JSON.stringify(JSON.parse(input));
-                        } catch(e) {
-                            minified = input.replace(/\s+/g, '');
+            const language = languageSelect.value;
+            const fileName = fileUpload.files[0]?.name || `code.${getFileExtension(language)}`;
+            
+            // Create minification prompt based on language
+            const prompts = {
+                javascript: `Minify this JavaScript code. Remove unnecessary whitespace, comments, and optimize the code while preserving functionality. Return ONLY the minified code without any explanations or formatting:\n\n${input}`,
+                css: `Minify this CSS code. Remove unnecessary whitespace, comments, and optimize selectors while preserving functionality. Return ONLY the minified CSS without any explanations or formatting:\n\n${input}`,
+                html: `Minify this HTML code. Remove unnecessary whitespace, comments, and optimize the structure while preserving functionality. Return ONLY the minified HTML without any explanations or formatting:\n\n${input}`,
+                json: `Minify this JSON data. Remove all unnecessary whitespace while preserving the valid JSON structure. Return ONLY the minified JSON without any explanations or formatting:\n\n${input}`,
+                xml: `Minify this XML code. Remove unnecessary whitespace and comments while preserving the valid XML structure. Return ONLY the minified XML without any explanations or formatting:\n\n${input}`
+            };
+            
+            try {
+                await window.Poe.sendUserMessage(
+                    `@Claude-Sonnet-4 ${prompts[language] || prompts.javascript}`,
+                    {
+                        handler: 'minify-handler',
+                        stream: true,
+                        openChat: false,
+                        handlerContext: {
+                            originalCode: input,
+                            language: language,
+                            fileName: fileName
                         }
-                        break;
-                    default:
-                        minified = input.replace(/\s+/g, ' ').trim();
-                }
-                
-                codeOutput.value = minified;
-                
-                // Calculate stats
-                const originalSize = new Blob([input]).size;
-                const minifiedSize = new Blob([minified]).size;
-                const reduction = Math.round(((originalSize - minifiedSize) / originalSize) * 100);
-                
-                document.getElementById('original-size').textContent = formatBytes(originalSize);
-                document.getElementById('minified-size').textContent = formatBytes(minifiedSize);
-                document.getElementById('compression-ratio').textContent = `${reduction}% smaller`;
-                document.getElementById('compression-ratio').classList.remove('hidden');
-                
-                outputStats.style.display = 'block';
-                document.getElementById('copy-output').disabled = false;
-                document.getElementById('download-output').disabled = false;
+                    }
+                );
+            } catch (error) {
+                codeOutput.value = `Error: ${error.message || 'Failed to process minification request'}`;
+                codeOutput.classList.add('text-red-500');
                 
                 // Reset button state
                 minifyBtn.disabled = false;
                 minifyText.textContent = 'Minify Code';
                 minifyIcon.classList.remove('animate-spin');
-            }, 1000);
+            }
         });
+
+        function getFileExtension(language) {
+            const extensions = {
+                javascript: 'js',
+                css: 'css',
+                html: 'html',
+                json: 'json',
+                xml: 'xml'
+            };
+            return extensions[language] || 'txt';
+        }
+
+        function showErrorMessage(message) {
+            const codeOutput = document.getElementById('code-output');
+            codeOutput.value = message;
+            codeOutput.classList.add('text-red-500');
+        }
 
         // Copy output
         document.getElementById('copy-output').addEventListener('click', async () => {
             const output = document.getElementById('code-output').value;
             try {
                 await navigator.clipboard.writeText(output);
-                // Show success feedback (you could add a toast notification here)
                 const btn = document.getElementById('copy-output');
                 const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
@@ -523,19 +675,13 @@
         document.getElementById('download-output').addEventListener('click', () => {
             const output = document.getElementById('code-output').value;
             const language = languageSelect.value;
-            const extensions = {
-                javascript: 'js',
-                css: 'css',
-                html: 'html',
-                json: 'json',
-                xml: 'xml'
-            };
+            const fileName = fileUpload.files[0]?.name || `minified.${getFileExtension(language)}`;
             
             const blob = new Blob([output], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `minified.${extensions[language] || 'txt'}`;
+            a.download = fileName;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -551,6 +697,10 @@
             const i = Math.floor(Math.log(bytes) / Math.log(k));
             return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
         }
+
+        // Initialize dashboard on load
+        updateDashboardStats();
+        updateRecentFiles();
     </script>
 </body>
 </html>
