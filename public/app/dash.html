@@ -535,16 +535,10 @@
                 const clickedBtn = document.querySelector(`[data-language="${language}"]`);
                 const originalContent = clickedBtn.innerHTML;
                 
-                clickedBtn.innerHTML = `
-                    <div class="flex items-center justify-center p-4">
-                        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-                    </div>
-                `;
-                
                 // Simulate navigation delay
                 setTimeout(() => {
                     window.location.href = `minify.html?l=${language}`;
-                }, 500);
+                }, 100);
             }
         }
 
