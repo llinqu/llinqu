@@ -6,4 +6,5 @@ _Llinqu_ is a completly free enterprise level code minifier. Using ultra fast al
 
 **Fun Fact** Llinqu is completly front end! It is very easy to use yourself, but remember to read [the license](LICENSE) first.
 
-_Last updated: 11:47 08/10/2025_
+  
+> _Last updated: 11:47 08/10/2025_
