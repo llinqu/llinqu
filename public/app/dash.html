@@ -534,11 +534,9 @@
                 // Add loading state
                 const clickedBtn = document.querySelector(`[data-language="${language}"]`);
                 const originalContent = clickedBtn.innerHTML;
-                
-                // Simulate navigation delay
-                setTimeout(() => {
-                    window.location.href = `minify.html?l=${language}`;
-                }, 100);
+
+                // Navigate to page
+                window.location.href = `minify.html?l=${language}`;
             }
         }
 
