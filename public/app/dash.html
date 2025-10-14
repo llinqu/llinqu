@@ -164,7 +164,7 @@
                         Recently Used
                     </h2>
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="recently-used-grid">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-20" id="recently-used-grid">
                             <!-- Recently used languages will be populated here -->
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
@@ -432,7 +432,7 @@
                     if (!lang) return '';
                     
                     return `
-                        <button class="language-card ml-20 bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-md border border-gray-200 dark:border-gray-600 text-left transition-all" data-language="${item.language}">
+                        <button class="language-card bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:shadow-md border border-gray-200 dark:border-gray-600 text-left transition-all" data-language="${item.language}">
                             <div class="flex items-center mb-3">
                                 <div class="w-10 h-10 bg-${lang.color}-100 dark:bg-${lang.color}-900/30 rounded-lg flex items-center justify-center mr-3">
                                     <i class="${lang.icon} text-${lang.color}-600 text-lg"></i>
