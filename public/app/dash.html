@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,29 +21,38 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .text-gradient {
             background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .language-card {
             transition: all 0.3s ease;
             min-width: 160px;
         }
+
         .language-card:hover {
             transform: translateY(-2px);
         }
+
         .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
     </style>
 </head>
+
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
     <div class="flex h-screen">
         <!-- Left Sidebar -->
@@ -62,25 +72,29 @@
             <nav class="flex-1 p-4">
                 <ul class="space-y-2">
                     <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-primary bg-primary/10 rounded-lg font-medium">
+                        <a href="#"
+                            class="flex items-center px-4 py-3 text-primary bg-primary/10 rounded-lg font-medium">
                             <i class="fas fa-code mr-3"></i>
                             Languages
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                        <a href="#"
+                            class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                             <i class="fas fa-history mr-3"></i>
                             History
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                        <a href="#"
+                            class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                             <i class="fas fa-chart-bar mr-3"></i>
                             Analytics
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                        <a href="#"
+                            class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                             <i class="fas fa-cog mr-3"></i>
                             Settings
                         </a>
@@ -104,8 +118,9 @@
                         </button>
                     </div>
                 </div>
-                
-                <a href="../" class="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-500 hover:text-primary border border-gray-300 dark:border-gray-600 rounded-lg transition-colors">
+
+                <a href="../"
+                    class="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-500 hover:text-primary border border-gray-300 dark:border-gray-600 rounded-lg transition-colors">
                     <i class="fas fa-home mr-2"></i>Home
                 </a>
             </div>
@@ -149,7 +164,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <div id="languages-container" class="overflow-x-auto scrollbar-hide">
                         <div class="flex space-x-4 pb-4" id="languages-scroll">
                             <!-- Languages will be populated here -->
@@ -164,7 +179,7 @@
                         Recently Used
                     </h2>
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-25" id="recently-used-grid">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[20px]" id="recently-used-grid">
                             <!-- Recently used languages will be populated here -->
                         </div>
                         <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-center">
@@ -189,7 +204,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                         <div class="flex items-center">
                             <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
@@ -201,7 +216,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
                         <div class="flex items-center">
                             <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mr-4">
@@ -544,4 +559,5 @@
         });
     </script>
 </body>
+
 </html>
