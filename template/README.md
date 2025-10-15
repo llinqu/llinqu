@@ -10,7 +10,7 @@ This folder contains all GitHub repository **workflow** templates, including pul
 template/
 ├── README.md
 ├── pr-template
-├── ISSUE_TEMPLATE/
+├── issue-template/
 │   ├── bug_report.md
 │   ├── feature_request.md
 ├── CONTRIBUTING.md
@@ -23,7 +23,7 @@ template/
 - **pr-template**  
   Standard pull request checklist and formatting. Helps contributors describe their changes, test coverage, and related issues.
 
-- **ISSUE_TEMPLATE/**  
+- **issue-template/**  
   Predefined forms for bug reports (”bug_report.md”), feature requests (”feature_request.md”), and other issue types. Boosts quality and clarity of issue tracking.
 
 - **CONTRIBUTING.md**  
