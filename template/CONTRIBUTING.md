@@ -21,20 +21,24 @@ To contribute code changes:
 
 1. Fork the repository.
 2. Clone your fork locally:
-   ”sh
+     
+   ```sh
    git clone https://github.com/your-username/llinqu.git
-   ”
-3. Create a new branch for your feature or fix:
-   ”sh
+   ```
+4. Create a new branch for your feature or fix:
+     
+   ```sh
    git checkout -b my-feature-branch
-   ”
-4. Make your changes.
-5. Commit your changes with clear messages.
-6. Push your branch to your fork:
-   ”sh
+   ```
+   
+5. Make your changes.
+6. Commit your changes with clear messages.
+7. Push your branch to your fork:
+     
+   ```sh
    git push origin my-feature-branch
-   ”
-7. Open a Pull Request (PR) against the ”main” branch of the original repository.
+   ```
+9. Open a Pull Request (PR) against the ”main” branch of the original repository.
 
 ---
 
