@@ -7,7 +7,7 @@ This folder contains all GitHub repository **workflow** templates, including pul
 ## Structure
 
 ```scss
-templates/
+template/
 ├── README.md
 ├── pr-template
 ├── ISSUE_TEMPLATE/
