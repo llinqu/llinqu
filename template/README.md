@@ -11,8 +11,8 @@ template/
 ├── README.md
 ├── pr-template
 ├── issue-template/
-│   ├── bug_report.md
-│   ├── feature_request.md
+│   ├── bug-report.md
+│   ├── feature-request.md
 ├── CONTRIBUTING.md
 ```
 
@@ -24,7 +24,7 @@ template/
   Standard pull request checklist and formatting. Helps contributors describe their changes, test coverage, and related issues.
 
 - **issue-template/**  
-  Predefined forms for bug reports (”bug_report.md”), feature requests (”feature_request.md”), and other issue types. Boosts quality and clarity of issue tracking.
+  Predefined forms for bug reports (”bug-report.md”), feature requests (”feature-request.md”), and other issue types. Boosts quality and clarity of issue tracking.
 
 - **CONTRIBUTING.md**  
   Guidelines for code contributions: setup instructions, branch rules, commit conventions, code review process.
