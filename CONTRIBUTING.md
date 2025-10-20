@@ -23,7 +23,7 @@ To contribute code changes:
 2. Clone your fork locally:
      
    ```sh
-   git clone https://github.com/your-username/llinqu.git
+   git clone https://github.com/llinqu/llinqu.git
    ```
 4. Create a new branch for your feature or fix:
      
