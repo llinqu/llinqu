@@ -160,7 +160,7 @@
             </div>
             <div class="flex-1 bg-white dark:bg-gray-800 flex flex-col">
                 <div id="inputEditor" class="flex-1"></div>
-                <div id="inputWordCount" class="px-6 py-2 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">Characters: 0</div>
+                <div id="inputWordCount" class="px-6 py-2 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">Words: 0</div>
             </div>
         </div>
         <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
@@ -184,7 +184,7 @@
             </div>
             <div class="flex-1 bg-white dark:bg-gray-800 flex flex-col">
                 <div id="outputEditor" class="flex-1"></div>
-                <div id="outputWordCount" class="px-6 py-2 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">Characters: 0</div>
+                <div id="outputWordCount" class="px-6 py-2 text-xs text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">Words: 0</div>
             </div>
         </div>
     </div>
@@ -240,13 +240,13 @@
             });
         }
 
-        function countCharacters(text) {
-            return text.length;
+        function countWords(text) {
+            return (text.match(/\b\S+\b/g) || []).length;
         }
 
         function updateWordCounts() {
-            document.getElementById('inputWordCount').textContent = `Characters: ${countCharacters(inputEditor ? inputEditor.getValue() : '')}`;
-            document.getElementById('outputWordCount').textContent = `Characters: ${countCharacters(outputEditor ? outputEditor.getValue() : '')}`;
+            document.getElementById('inputWordCount').textContent = `Words: ${countWords(inputEditor ? inputEditor.getValue() : '')}`;
+            document.getElementById('outputWordCount').textContent = `Words: ${countWords(outputEditor ? outputEditor.getValue() : '')}`;
         }
 
         function initializeEditors() {
@@ -327,4 +327,99 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
         }
 
-        function copyToClipboard(text)
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Copied to clipboard');
+            });
+        }
+
+        function downloadFile() {
+            const config = languageConfig[currentLanguage];
+            const content = outputEditor.getValue();
+            if (!content) return;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `minified-${config.fileName}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            if (inputEditor && outputEditor) {
+                const theme = event.matches ? 'vs-dark' : 'vs';
+                monaco.editor.setTheme(theme);
+            }
+        });
+
+        document.getElementById('menuBtn').addEventListener('click', () => {
+            document.getElementById('menuOverlay').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('menuPanel').classList.add('open');
+            }, 10);
+        });
+        document.getElementById('closeMenuBtn').addEventListener('click', closeMenu);
+        document.getElementById('menuOverlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('menuOverlay')) {
+                closeMenu();
+            }
+        });
+        function closeMenu() {
+            document.getElementById('menuPanel').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('menuOverlay').classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+            location.reload();
+        });
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            inputEditor.setValue('');
+            updateWordCounts();
+        });
+        document.getElementById('copyInputBtn').addEventListener('click', () => {
+            copyToClipboard(inputEditor.getValue());
+        });
+        document.getElementById('copyOutputBtn').addEventListener('click', () => {
+            copyToClipboard(outputEditor.getValue());
+        });
+        document.getElementById('downloadBtn').addEventListener('click', downloadFile);
+
+        async function initApp() {
+            currentLanguage = getLanguageFromURL();
+            updateLanguageUI();
+            try {
+                await loadMinifierScript();
+                initializeEditors();
+            } catch (error) {
+                console.error('Failed to load minifier:', error);
+                document.getElementById('loadingOverlay').innerHTML = `
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                        </div>
+                        <p class="text-lg font-medium text-red-600 mb-2">Failed to load minifier</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">The ${languageConfig[currentLanguage].name} minifier could not be loaded.</p>
+                        <button onclick="location.href='index.html'" class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-200">
+                            Back to Languages
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        initApp();
+    </script>
+</body>
+</html>
