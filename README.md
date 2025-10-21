@@ -1,8 +1,8 @@
-# Llinqu: Free Enterprise-Level Code Minifier
-
 [![Llinqu logo](https://github.com/user-attachments/assets/cc1e5dcd-8123-40cc-b7b3-67324cf24f12)](https://github.com/llinqu/llinqu)
 
 ---
+
+# Llinqu: Free Enterprise-Level Code Minifier
 
 ## Overview
 
@@ -57,6 +57,11 @@ Llinqu is engineered for speed, simplicity, and security. All code stays on your
 
 - Github Pages Release (Latest): Oct 10, 2025
 - Updates tracked on GitHub
+
+
+### Developer Utilities
+
+To use llinqu client side for yourself, use the llinqu develoer utilities at [llinqu/dev](https://github.com/llinqu/dev) and follow the instructions there to install and use.
 
 ---
 
