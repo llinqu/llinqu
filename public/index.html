@@ -292,6 +292,15 @@
 
         // Check if auto load is enabled on page load
         function checkAutoLoad() {
+            // Check for query parameter override
+            const urlParams = new URLSearchParams(window.location.search);
+            const alParam = urlParams.get('al');
+
+            // If ?al=false is present, skip auto-redirect
+            if (alParam === 'false') {
+                return;
+            }
+
             // eslint-disable-next-line no-restricted-globals
             const autoLoadEnabled = localStorage.getItem(AUTO_LOAD_KEY) === 'true';
             if (autoLoadEnabled) {
@@ -386,4 +395,3 @@
     </script>
 </body>
 </html>
-
