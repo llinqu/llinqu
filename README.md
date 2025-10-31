@@ -14,8 +14,6 @@
 - Simple integration, intuitive usage
 - Open source under MIT License ([see license](LICENSE))
 
-> *Last updated: 11:47 08/10/2025*
-
 ---
 
 ## About Llinqu
@@ -53,9 +51,9 @@ Llinqu is engineered for speed, simplicity, and security. All code stays on your
 
 ---
 
-### Release Activity
+### Major Release Activity
 
-- Github Pages Release (Latest): Oct 10, 2025
+- Github Pages Release: Oct 10, 2025
 - Updates tracked on GitHub
 
 
@@ -65,4 +63,11 @@ To use llinqu client side for yourself, use the llinqu develoer utilities at [ll
 
 ---
 
+**Footnotes:**
+
 [^1]: All information is from the official GitHub repository & documentation for Llinqu.
+
+---
+
+> [!Note]
+> *Last updated: 11:47 08/10/2025*
