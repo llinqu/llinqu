@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>llinqu - The Free Enterprise Minifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="./assets/img/icon.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #111827 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #5D5CDE;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <img src="assets/img/logo.png" alt="llinqu Logo" class="h-10 w-10 rounded-full">
+                    <span class="text-xl font-bold text-white">llinqu</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-white hover:text-gray-200 transition-colors duration-200">Home</a>
+                    <a href="#about" class="text-white hover:text-gray-200 transition-colors duration-200">About</a>
+                    <a href="#opensource" class="text-white hover:text-gray-200 transition-colors duration-200">Open Source</a>
+                    <a href="app/dash.html" class="bg-white text-primary px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-medium">
+                        Launch App
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 bg-gray-900/95 backdrop-blur-md rounded-lg px-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="text-white hover:text-gray-200 transition-colors duration-200 py-2">Home</a>
+                    <a href="#about" class="text-white hover:text-gray-200 transition-colors duration-200 py-2">About</a>
+                    <a href="#opensource" class="text-white hover:text-gray-200 transition-colors duration-200 py-2">Open Source</a>
+                    <a href="app/dash.html" class="bg-white text-primary px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-medium text-center">
+                        Launch App
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, white 2px, transparent 2px); background-size: 60px 60px;"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                Welcome to <span class="text-yellow-300">llinqu</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-100 mb-8 font-light">
+                The free enterprise minifier
+            </p>
+            <a href="app/dash.html" class="inline-flex items-center px-8 py-4 bg-white text-primary rounded-full font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-2xl">
+                Launch Now
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </a>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- What is Linqu Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    What is <span class="text-gradient">llinqu</span>?
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                        llinqu is a completely free enterprise level code minifier. Using ultra fast algorithms, llinqu gets minifying done in nano-seconds. With an extensive range of languages, llinqu is the best tool in your kit.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                        Whether you're working with JavaScript, CSS, HTML, JSON, or XML, llinqu handles it all with precision and speed. Our advanced compression techniques ensure your code maintains its functionality while dramatically reducing file sizes.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Built for developers, by developers, llinqu streamlines your workflow and optimizes your web applications for peak performance.
+                    </p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-700 p-8 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold mb-6 text-gradient">Key Features</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                            <span class="text-gray-700 dark:text-gray-300">Lightning-fast processing</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                            <span class="text-gray-700 dark:text-gray-300">Multiple language support</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                            <span class="text-gray-700 dark:text-gray-300">Enterprise-grade reliability</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                            <span class="text-gray-700 dark:text-gray-300">100% free to use</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-primary rounded-full"></div>
+                            <span class="text-gray-700 dark:text-gray-300">No registration required</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Source Section -->
+    <section id="opensource" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    We are <span class="text-gradient">Open Source</span>
+                </h2>
+            </div>
+
+            <div class="bg-gradient-to-r from-primary to-purple-600 rounded-3xl p-12 text-white text-center">
+                <div class="max-w-3xl mx-auto">
+                    <svg class="w-16 h-16 mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <h3 class="text-3xl font-bold mb-6">Transparency & Community</h3>
+                    <p class="text-xl mb-8 leading-relaxed opacity-90">
+                        llinqu believes in the power of open source. Our entire codebase is publicly available on GitHub, allowing developers worldwide to contribute, review, and improve the platform. Join our growing community of contributors and help shape the future of code minification.
+                    </p>
+                    <a href="https://github.com/llinqu/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 bg-white text-primary rounded-full font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl">
+                        <svg class="mr-3 w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="../assets/img/logo.png" alt="llinqu Logo" class="h-8 w-8">
+                        <span class="text-xl font-bold">llinqu</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        The free enterprise minifier that optimizes your code with lightning-fast performance.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors duration-200">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors duration-200">About</a></li>
+                        <li><a href="#opensource" class="text-gray-400 hover:text-white transition-colors duration-200">Open Source</a></li>
+                        <li><a href="app/" class="text-gray-400 hover:text-white transition-colors duration-200">Launch App</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://github.com/llinqu/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors duration-200 flex items-center space-x-2">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                <span>GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 llinqu. All rights reserved. | Built with ❤️ for the developer community.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auto Load Toggle - Sticky Bottom Left -->
+    <div class="fixed bottom-6 left-6 z-50 bg-white dark:bg-gray-800 shadow-2xl rounded-xl px-4 py-3 flex items-center space-x-3 border border-gray-200 dark:border-gray-700">
+        <span class="text-gray-900 dark:text-white text-sm font-medium">Auto Load</span>
+        <label class="toggle-switch">
+            <input type="checkbox" id="autoLoadToggle">
+            <span class="toggle-slider"></span>
+        </label>
+    </div>
+
+    <script>
+        // Auto Load functionality
+        const AUTO_LOAD_KEY = 'llinqu_auto_load';
+
+        // Check if auto load is enabled on page load
+        function checkAutoLoad() {
+            // Check for query parameter override
+            const urlParams = new URLSearchParams(window.location.search);
+            const alParam = urlParams.get('al');
+
+            // If ?al=false is present, skip auto-redirect
+            if (alParam === 'false') {
+                return;
+            }
+
+            // eslint-disable-next-line no-restricted-globals
+            const autoLoadEnabled = localStorage.getItem(AUTO_LOAD_KEY) === 'true';
+            if (autoLoadEnabled) {
+                window.location.href = 'app/dash.html';
+            }
+        }
+
+        // Initialize auto load check
+        checkAutoLoad();
+
+        // Function to sync toggle states
+        function syncToggles(checked) {
+            const toggle = document.getElementById('autoLoadToggle');
+            if (toggle) toggle.checked = checked;
+        }
+
+        // Function to update auto load setting
+        function updateAutoLoad(enabled) {
+            // eslint-disable-next-line no-restricted-globals
+            localStorage.setItem(AUTO_LOAD_KEY, enabled.toString());
+            syncToggles(enabled);
+        }
+
+        // Initialize toggle when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // eslint-disable-next-line no-restricted-globals
+            const autoLoadEnabled = localStorage.getItem(AUTO_LOAD_KEY) === 'true';
+            syncToggles(autoLoadEnabled);
+
+            // Toggle event listener
+            const toggle = document.getElementById('autoLoadToggle');
+            if (toggle) {
+                toggle.addEventListener('change', function() {
+                    updateAutoLoad(this.checked);
+                });
+            }
+        });
+
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Sticky navigation with backdrop blur
+        const navbar = document.getElementById('navbar');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > 100) {
+                navbar.classList.add('backdrop-blur-md', 'bg-black/20', 'dark:bg-black/40');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('backdrop-blur-md', 'bg-black/20', 'dark:bg-black/40');
+                navbar.classList.add('bg-transparent');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
