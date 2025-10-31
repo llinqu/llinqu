@@ -4,4 +4,4 @@ Use this file as a module for the seperatly sourced `minifier-js` min.js files, 
 
 ---
 
-Find module at [module.min.js](module.min.js).
+Find module js source at [module.min.js](module.min.js).
