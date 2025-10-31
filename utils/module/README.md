@@ -1,6 +1,6 @@
 ## module.min.js module information
 
-Use this file as a module for the seperatly sourced `js minifier` min.js files, found at [../js-minifier](../js-minifier).
+Use this file as a module for the seperatly sourced `minifier-js` min.js files, found at [../minifier-js](../minifier-js).
 
 ---
 
