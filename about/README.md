@@ -1,5 +1,7 @@
 # View about files [here](ABOUT.md)
 
+This directory contains information about llinqu in the format of _**about**_.
+
 ---
 
 ### List of files
