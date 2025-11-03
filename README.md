@@ -53,6 +53,7 @@ Llinqu is engineered for speed, simplicity, and security. All code stays on your
 
 ### Major Release Activity
 
+- Developer Release: Nov 3, 2025
 - Github Pages Release: Oct 10, 2025
 - Updates tracked on GitHub
 
