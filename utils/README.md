@@ -4,6 +4,14 @@
 
 [llinqu](https://github.com/llinqu/llinqu) is a lightweight, zero-dependency JavaScript library that provides minification utilities for several programming and markup languages. It safely removes comments, unnecessary whitespace, and performs basic optimizations to reduce code size.
 
+## Main `dev` Repo
+
+For use of the dev utilities in seperatly sourced repositories, etc.
+
+**Visit either:**
+- [`DEV-REPO.md`](DEV-REPO.md)
+- [`github.com/llinqu/dev`](https://github.com/llinqu/dev)
+
 ## Supported Languages
 
 * JavaScript
