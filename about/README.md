@@ -15,9 +15,4 @@ Sourced in current directory - All files located in `.`
 ### Details
 
 
-Sourced in current directory `(.)`, `(/)`. About file located in:
-
-- **cpt:** `ABOUT.md`
-- **chl** [`ABOUT.md`](ABOUT.md)
-- **hl:** [ABOUT.md](ABOUT.md)
-- **plain:** ABOUT.md
+Find the about files in this current directory. The about files explain what llinqu is and how to use it. If you are looking for instructions , read the [docs](../docs).
