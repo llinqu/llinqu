@@ -1,8 +1,17 @@
-[![Llinqu logo](https://github.com/user-attachments/assets/cc1e5dcd-8123-40cc-b7b3-67324cf24f12)](https://github.com/llinqu/llinqu)
+<div align="center">
+  <br /><br />
+  <a href="https://github.com/llinqu/llinqu">
+    <img src="https://github.com/user-attachments/assets/cc1e5dcd-8123-40cc-b7b3-67324cf24f12" alt="llinqu logo" width="300px" height="auto" />
+  </a>
+  <h3>
+    Free Enterprise-Level Code Minifier
+  </h3>
+  <br /><br />
+</div>
 
 ---
 
-# Llinqu: Free Enterprise-Level Code Minifier
+
 
 ## Overview
 
