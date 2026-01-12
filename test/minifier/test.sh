@@ -1,4 +1,4 @@
-#!/bin/bash
+# test/test.sh
 
 # Minifier Testing Protocol in Shell
 
